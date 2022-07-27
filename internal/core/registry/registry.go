@@ -1,14 +1,20 @@
 package registry
 
 import (
+	consumerRegistry "github.com/ilmimris/coinbit-test/internal/adapter/inbound/consumer/registry"
 	restRegistry "github.com/ilmimris/coinbit-test/internal/adapter/inbound/rest/registry"
-	repoRegistry "github.com/ilmimris/coinbit-test/internal/core/registry/repository"
+	"github.com/ilmimris/coinbit-test/internal/core/port/outbond/pubsub"
 )
 
-type registry struct{}
+type registry struct {
+	subscriber *pubsub.Subscriber
+	producer   *pubsub.Publisher
+	viewTable  *pubsub.ViewTable
+}
 
 type Registry interface {
 	NewRestRegistryService() *restRegistry.ServiceRegistry
+	NewConsumerRegistryService() *consumerRegistry.ServiceRegistry
 }
 
 type Option func(*registry)
@@ -29,6 +35,26 @@ func (r *registry) NewRestRegistryService() *restRegistry.ServiceRegistry {
 	)
 }
 
-func (r *registry) NewRepoRegistry() repoRegistry.RepositoryRegistry {
-	return repositories.NewRepositoryRegistry(repositories.OptRepoRegistry{})
+func (r *registry) NewConsumerRegistryService() *consumerRegistry.ServiceRegistry {
+	return consumerRegistry.NewServiceRegistry(
+		consumerRegistry.NewAccountService(r.NewAccountService()),
+	)
+}
+
+func NewGokaProducer(p *pubsub.Publisher) Option {
+	return func(r *registry) {
+		r.producer = p
+	}
+}
+
+func NewGokaViewTable(v *pubsub.ViewTable) Option {
+	return func(r *registry) {
+		r.viewTable = v
+	}
+}
+
+func NewGokaConsumerGroup(s *pubsub.Subscriber) Option {
+	return func(r *registry) {
+		r.subscriber = s
+	}
 }

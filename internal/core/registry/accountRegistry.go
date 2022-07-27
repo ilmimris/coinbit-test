@@ -5,8 +5,6 @@ import (
 	coresvc "github.com/ilmimris/coinbit-test/internal/core/service"
 )
 
-func (r *registry) NewAccountService() service.AccountService {
-	return coresvc.NewAccountService(
-		coresvc.NewAccountRepoRegistry(r.NewRepoRegistry()),
-	)
+func (r *registry) NewAccountService() service.WalletService {
+	return coresvc.NewWalletService()
 }

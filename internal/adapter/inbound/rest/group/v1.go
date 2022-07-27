@@ -8,5 +8,9 @@ import (
 func InitV1Group(root fiber.Router, h handler.HandlerV1) fiber.Router {
 	v1Group := root.Group("/v1")
 
+	walletGroup := v1Group.Group("/wallet")
+	walletGroup.Get("/", h.GetBalance())
+	walletGroup.Post("/", h.SaveDeposit())
+
 	return v1Group
 }
