@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"log"
 	"os"
 	"os/signal"
 
@@ -29,7 +30,7 @@ type bootstrap struct {
 type OptionService func(b *bootstrap)
 
 type Bootstrapper interface {
-	Initialize(cfgFile string)
+	Initialize(cfgURL string)
 	AddServices(services ...OptionService)
 	Close()
 	GetTopicManagerConfig() *goka.TopicManagerConfig
@@ -40,6 +41,7 @@ type Bootstrapper interface {
 }
 
 func (b *bootstrap) Initialize(cfgURL string) {
+	log.Println("Initializing configuration: %s", cfgURL)
 	config.ReadModuleConfig(cfgURL)
 }
 

@@ -10,9 +10,10 @@ import (
 
 func (h *HandlerV1) SaveDeposit() func(*fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
-		service := h.serviceRegistry.GetAccountService()
+
+		service := h.GetServiceRegistry().GetAccountService()
 		var req request.DepositRequestParams
-		if err := c.QueryParser(&req); err != nil {
+		if err := c.BodyParser(&req); err != nil {
 			return respond.Fail(c, http.StatusBadRequest, http.StatusBadRequest, err)
 		}
 
@@ -27,7 +28,8 @@ func (h *HandlerV1) SaveDeposit() func(*fiber.Ctx) error {
 
 func (h *HandlerV1) GetBalance() func(*fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
-		service := h.serviceRegistry.GetAccountService()
+		service := h.GetServiceRegistry().GetAccountService()
+
 		var req request.BalanceRequestParams
 		if err := c.QueryParser(&req); err != nil {
 			return respond.Fail(c, http.StatusBadRequest, http.StatusBadRequest, err)

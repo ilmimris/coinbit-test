@@ -3,8 +3,9 @@ package service
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/ilmimris/coinbit-test/internal/core/domain"
 	"github.com/ilmimris/coinbit-test/internal/core/port/inbound/service"
@@ -137,13 +138,13 @@ func (w *walletService) ProcessThreshold(ctx goka.Context, walletID string, amou
 func (w *walletService) GetDetail(ctx context.Context, walletID string) (domain.Wallet, error) {
 	balanceData, err := w.balanceViewTable.Get(walletID)
 	if err != nil {
-		log.Fatalf("error get balance data: %v", err)
+		log.Errorf("error get balance data: %v", err)
 		return domain.Wallet{}, err
 	}
 
 	thresholdData, err := w.thresholdViewTable.Get(walletID)
 	if err != nil {
-		log.Fatalf("error get threshold data: %v", err)
+		log.Errorf("error get threshold data: %v", err)
 		return domain.Wallet{}, err
 	}
 

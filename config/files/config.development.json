@@ -1,14 +1,14 @@
 {
     "rest": {
         "app": "wallet-service",
-        "port": ":9000",
+        "port": "9000",
         "graceful_timeout": 10,
         "read_timeout": 10,
         "write_timeout": 10,
         "api_timeout": 10
     },
     "kafka": {
-        "host": [
+        "brokers": [
             "localhost:9092"
         ]
     },

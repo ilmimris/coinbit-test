@@ -1,6 +1,8 @@
 package handler
 
-import "github.com/ilmimris/coinbit-test/internal/adapter/inbound/rest/registry"
+import (
+	"github.com/ilmimris/coinbit-test/internal/adapter/inbound/rest/registry"
+)
 
 type HandlerV1 struct {
 	serviceRegistry *registry.ServiceRegistry

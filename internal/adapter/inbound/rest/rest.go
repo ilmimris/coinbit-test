@@ -37,6 +37,7 @@ func NewRest(o *Options, serviceRegistry *registry.ServiceRegistry) *Rest {
 		options: o,
 	}
 
+	log.Printf("service registry: %v", serviceRegistry)
 	v1 := handler.V1New(handler.OptHandlerV1{
 		ServiceRegistry: serviceRegistry,
 	})
