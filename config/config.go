@@ -57,7 +57,7 @@ func LoadConfig(cfgFile string) {
 	if err != nil {
 		panic(err)
 	}
-	return
+
 }
 
 func setConfigFile(cfgFile string) {
