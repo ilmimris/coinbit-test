@@ -1,0 +1,23 @@
+{
+    "rest": {
+        "app": "wallet-service",
+        "port": ":9000",
+        "graceful_timeout": 10,
+        "read_timeout": 10,
+        "write_timeout": 10,
+        "api_timeout": 10
+    },
+    "kafka": {
+        "host": [
+            "localhost:9092"
+        ]
+    },
+    "logger": {
+        "level": "debug",
+        "format": "json"
+    },
+    "wallet": {
+        "threshold": 10000,
+        "rolling_period": 120
+    }
+}

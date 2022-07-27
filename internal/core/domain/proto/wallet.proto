@@ -1,9 +1,9 @@
-syntax = "proto3"
+syntax = "proto3";
 
 package proto;
-option go_package = "./;proto"
+option go_package = "./;proto";
 
 message Wallet {
     string wallet_id = 1;
-    double amount = 2
+    double amount = 2;
 }

@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"log"
-
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +11,7 @@ var restCommand = &cobra.Command{
 		log.Println("rest command")
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Println("rest command")
+		bst.GetRest().Serve()
 	},
 	PostRun: func(cmd *cobra.Command, args []string) {},
 }

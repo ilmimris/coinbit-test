@@ -16,7 +16,7 @@ func (h *HandlerV1) SaveDeposit() func(*fiber.Ctx) error {
 			return respond.Fail(c, http.StatusBadRequest, http.StatusBadRequest, err)
 		}
 
-		err := service.Deposit(req.WalletID, req.Amount)
+		err := service.Deposit(c.UserContext(), req.WalletID, req.Amount)
 		if err != nil {
 			return respond.Fail(c, http.StatusInternalServerError, http.StatusInternalServerError, err)
 		}
@@ -33,7 +33,7 @@ func (h *HandlerV1) GetBalance() func(*fiber.Ctx) error {
 			return respond.Fail(c, http.StatusBadRequest, http.StatusBadRequest, err)
 		}
 
-		amount, err := service.Balance(req.WalletID)
+		amount, err := service.GetDetail(c.UserContext(), req.WalletID)
 		if err != nil {
 			return respond.Fail(c, http.StatusInternalServerError, http.StatusInternalServerError, err)
 		}
